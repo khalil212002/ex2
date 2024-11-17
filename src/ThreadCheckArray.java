@@ -8,9 +8,14 @@ public class ThreadCheckArray implements Runnable
 	ArrayList<Integer> array;
 	int b;
 	
+	
+	/**
+	 * A constructor that accepts the shared data
+	 * @param sd shared data
+	 */
 	public ThreadCheckArray(SharedData sd) 
 	{
-		this.sd = sd;	
+		this.sd = sd;
 		synchronized (sd) 
 		{
 			array = sd.getArray();
@@ -19,6 +24,12 @@ public class ThreadCheckArray implements Runnable
 		winArray = new boolean[array.size()];
 	}
 	
+	/**
+	 * Accepts an array size and a target number and searches
+	 * for if the sum of some of the array numbers is equal to b(target number)
+	 * @param n array size to what work with
+	 * @param b target number
+	 */
 	void rec(int n, int b)
 	{
 		synchronized (sd) 
@@ -52,6 +63,9 @@ public class ThreadCheckArray implements Runnable
 		rec(n-1, b);
 	}
 
+	/**
+	 * A runnable function that executes the rec function with different array sizes on different threads
+	 */
 	public void run() {
 		if (array.size() != 1)
 			if (Thread.currentThread().getName().equals("thread1"))
